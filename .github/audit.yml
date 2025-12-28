@@ -1,0 +1,40 @@
+name: Code Quality Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Креатив: возможность запускать вручную кнопку
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      run: pytest tests/
+
+    - name: Check Style (PEP8)
+      run: flake8 src tests --ignore=E501
+
+    - name: Run Quality Analyzer (Creative Step)
+      run: python src/main.py src/analyzer.py
+
+    - name: Upload Audit Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-quality-report
+        path: reports/audit.txt
