@@ -1,6 +1,7 @@
 import ast
 import os
 
+
 class CodeAnalyzer:
     def __init__(self):
         self.metrics = {
@@ -18,9 +19,9 @@ class CodeAnalyzer:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
             self.metrics["lines_of_code"] = len(content.splitlines())
-            
+
         tree = ast.parse(content)
-        
+
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef):
                 self.metrics["functions_count"] += 1
@@ -28,7 +29,7 @@ class CodeAnalyzer:
                     self.metrics["docstrings_count"] += 1
             elif isinstance(node, ast.ClassDef):
                 self.metrics["classes_count"] += 1
-                
+
         return self.get_score()
 
     def get_score(self):
@@ -39,11 +40,11 @@ class CodeAnalyzer:
             doc_ratio = self.metrics["docstrings_count"] / self.metrics["functions_count"]
             if doc_ratio < 0.5:
                 score -= 20
-        
-        # Штраф за слишком большие файлы (простая логика)
+
+        # Штраф за слишком большие файлы
         if self.metrics["lines_of_code"] > 200:
             score -= 10
-            
+
         return max(0, score)
 
     def generate_report(self):
@@ -52,3 +53,4 @@ class CodeAnalyzer:
                 f"Docstrings: {self.metrics['docstrings_count']}\n"
                 f"Lines: {self.metrics['lines_of_code']}\n"
                 f"Final Score: {self.get_score()}/100")
+                
