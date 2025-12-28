@@ -22,6 +22,7 @@
 git clone [https://github.com/varvarank/code-quality-tool.git](https://github.com/varvarank/code-quality-tool.git)
 cd code-quality-tool
 pip install -r requirements.txt
+```
 
 ## Примеры использования
 
@@ -35,11 +36,8 @@ Functions: 3
 Docstrings: 3
 Lines: 48
 Final Score: 100/100
+```
 
-#### Добавьте описание CI/CD (это важно для «Креатива»):
-В критериях оценивания (файл `evaluation-matrix.md`) 2 балла дают за объяснение работы автоматизации.
-
-```markdown
 ## Автоматизация (CI/CD)
 
 В проекте настроен GitHub Actions workflow, который при каждом пуше:
