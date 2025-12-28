@@ -53,4 +53,3 @@ class CodeAnalyzer:
                 f"Docstrings: {self.metrics['docstrings_count']}\n"
                 f"Lines: {self.metrics['lines_of_code']}\n"
                 f"Final Score: {self.get_score()}/100")
-                

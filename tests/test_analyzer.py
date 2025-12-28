@@ -26,4 +26,3 @@ def test_score_logic(sample_file):
     score = analyzer.get_score()
     assert score <= 100
     assert score >= 0
-    
